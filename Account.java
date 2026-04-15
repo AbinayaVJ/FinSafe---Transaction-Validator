@@ -1,14 +1,13 @@
 package transactionProcessor;
 import java.util.ArrayList;
 
-
 class Account {
-    private String accountHolder;
+    private String accHolder;
     private double balance;
     private ArrayList<Double> transactions = new ArrayList<>();
 
-    public Account(String accountHolder, double balance) {
-        this.accountHolder = accountHolder;
+    public Account(String accHolder, double balance) {
+        this.accHolder = accHolder;
         this.balance = balance;
     }
 
@@ -17,48 +16,41 @@ class Account {
         return balance;
     }*/
 
-    // Core validation logic
-    public void processTransaction(double amount) throws InSufficientFundsException {
-        if (amount == 0) return;
-
-        if (amount < 0) {
-            throw new IllegalArgumentException("Amount cannot be negative");
+    
+    public void processTransaction(double amt) throws InSuffFundsException {
+        if (amt == 0) return;
+        if (amt < 0) {
+            throw new IllegalArgumentException("Amount cant be negative");
+        }if (amt > balance) {
+            throw new InSuffFundsException("Insufficient balance!");
         }
-
-        if (amount > balance) {
-            throw new InSufficientFundsException("Insufficient balance!");
-        }
-
-        balance -= amount;
-        addTransaction(-amount); // withdrawal stored as negative
+        balance -= amt;
+        addTransaction(-amt); 
     }
 
-    public void deposit(double amount) {
-        if (amount < 0) {
-            throw new IllegalArgumentException("Amount cannot be negative");
+    public void deposit(double rupees) {
+        if (rupees < 0) {
+            throw new IllegalArgumentException("Amount cant be negative");
         }
-
-        balance += amount;
-        addTransaction(amount);
+        balance += rupees;
+        addTransaction(rupees);
     }
 
     private void addTransaction(double amount) {
         if (transactions.size() == 5) {
-            transactions.remove(0); // keep only last 5
+            transactions.remove(0); 
         }
         transactions.add(amount);
     }
 
-    public void printMiniStatement() {
-        
+    public void printMiniStmt() {
         if (transactions.isEmpty()) {
             System.out.println("No transactions yet.");
             return;
         }
         System.out.println("Last 5 Transactions:");
         for (double t : transactions) {
-        	
-            if (t > 0)
+        	if (t > 0)
                 System.out.println("Deposited: Rs." + t);
             else
                 System.out.println("Withdrawn: Rs." + Math.abs(t));
