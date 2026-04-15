@@ -1,13 +1,9 @@
 package transactionProcessor;
 import java.util.Scanner;
-
-
 public class FinSafe {
     static Scanner sc = new Scanner(System.in);
-
     public static void main(String[] args) {
-
-        Account acc = new Account("Abinaya", 0);
+    	Account acc = new Account("Abinaya", 0);
         boolean isRunning = true;
 
         while (isRunning) {
@@ -16,11 +12,8 @@ public class FinSafe {
             System.out.println("2. Withdraw");
             System.out.println("3. Mini Statement");
             System.out.println("4. Exit");
-            
             System.out.print("Enter your Choice: ");
-
             int choice = sc.nextInt();
-
             try {
                 switch (choice) {
                     case 1:
@@ -38,7 +31,7 @@ public class FinSafe {
                         break;
 
                     case 3:
-                    	acc.printMiniStatement();
+                    	acc.printMiniStmt();
                         break;
 
                     case 4:
@@ -52,16 +45,15 @@ public class FinSafe {
                     
                         
                     default:
-                        System.out.println("Invalid choice");
+                        System.out.println("Invalid");
                 }
 
-            } catch (InSufficientFundsException e) {
+            } catch (InSuffFundsException e) {
                 System.out.println("Error: " + e.getMessage());
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
             }
         }
-
         System.out.println("Thank you!");
         sc.close();
     }
