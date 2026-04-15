@@ -1,11 +1,7 @@
 package transactionProcessor;
-class InSufficientFundsException extends Exception {
+class InSuffFundsException extends Exception {
     private static final long serialVersionUID = 1L;
-
-    public InSufficientFundsException(String message) {
-        super(message);
+    public InSuffFundsException(String msg) {
+        super(msg);
     }
 }
-
-
-
